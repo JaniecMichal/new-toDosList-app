@@ -1,6 +1,7 @@
 import React from 'react';
-import { Box, Heading, Button } from 'theme-ui';
+import { Box, Button } from 'theme-ui';
 import FormField from 'components/molecules/FormField';
+import SubHeader from 'components/atoms/SubHeader';
 
 const AddTaskForm = () => {
   return (
@@ -12,9 +13,7 @@ const AddTaskForm = () => {
         width: '100%',
       }}
     >
-      <Heading as="h2" variant="headings.secondary">
-        Add task
-      </Heading>
+      <SubHeader>Add task</SubHeader>
       <FormField label="Task title" name="taskTitle" />
       <FormField
         label="Task description"
@@ -30,6 +29,7 @@ const AddTaskForm = () => {
           width: '100%',
           '&:hover': {
             bg: 'transparent',
+            padding: '18px 30px',
             border: '2px solid teal',
             color: 'black',
             cursor: 'pointer',
