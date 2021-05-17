@@ -1,36 +1,63 @@
 export const theme = {
-  fontSize: {
-    small: '11px',
-    medium: '12px',
-    large: '17px',
-    xlarge: '24px',
-    xxlarge: '34px',
+  breakpoints: ['40em', '52em', '64em'],
+  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
+  fonts: {
+    main: 'Montserrat',
+    heading: 'Montserrat',
+  },
+  fontSizes: [12, 14, 16, 24, 32],
+  fontWeights: {
+    body: 400,
+    heading: 700,
+    bold: 700,
+  },
+  lineHeights: {
+    body: 1.5,
+    heading: 1.125,
   },
   colors: {
-    white: '#FFFFFF',
-    mercury: '#E5E5E5',
-    heather: '#C0C7D6',
-    puce: '#CB8581',
-    zombie: '#E1D888',
-    deYork: '#8FCB81',
-    raven: '#737C8E',
-    vidaLoca: '#3EAE24',
-    gold: '#FFD700',
-    lightGrey: '#F7F8FA',
-    grey: '#C0C7D6',
-    darkGrey: '#737C8E',
-    black: '#111111',
-    success: '#8FCB81',
-    error: '#CB8581',
-    warning: '#E1D888',
-    darkPurple: '#C0C7D6',
-    lightPurple: '#ECEFF7',
+    black: '#000',
+    bombay: '#ACAFB4',
+    mercury: '#E3E3E3',
+    white: '#fff',
+    teal: '#008080',
+    crimson: '#E61614',
+    christi: '#35BC15',
   },
-  media: {
-    extraMobileSmall: '340px',
-    extraMobile: '575.98px',
-    mobile: '767.98px',
-    tablet: '991.98px',
-    desktop: '1199.98px',
+  headings: {
+    secondary: {
+      fontSize: 24,
+      paddingBottom: 10,
+      color: 'black',
+      borderBottom: '2px solid #222',
+      marginBottom: 12,
+    },
+  },
+  forms: {
+    input: {
+      border: '2px solid #008080',
+    },
+    textarea: {
+      height: 200,
+      border: '2px solid #008080',
+    },
+  },
+  text: {
+    caps: {
+      textTransform: 'uppercase',
+      letterSpacing: '0.2em',
+    },
+    heading: {
+      fontFamily: 'heading',
+      fontWeight: 'heading',
+      lineHeight: 'heading',
+    },
+  },
+  styles: {
+    root: {
+      fontFamily: 'main',
+      fontWeight: 'body',
+      color: 'black',
+    },
   },
 };
