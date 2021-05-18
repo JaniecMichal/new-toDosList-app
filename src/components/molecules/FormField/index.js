@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Input, Label } from '@theme-ui/components';
 
-const FormField = ({ label, name, asWhat = 'input' }) => {
+const FormField = ({ label, name, asWhat = 'input', onChange, value }) => {
   return (
     <Box mb={12}>
       <Label htmlFor={name} mb={1}>
@@ -18,6 +18,9 @@ const FormField = ({ label, name, asWhat = 'input' }) => {
           resize: 'none',
           lineHeight: 1.25,
         }}
+        value={value}
+        onChange={onChange}
+        required
       />
     </Box>
   );
