@@ -3,7 +3,7 @@ import { Box, Button, Flex, Heading, Link } from '@theme-ui/components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 
-const ListItem = ({ taskTitle }) => {
+const ListItem = ({ taskTitle, isDone }) => {
   return (
     <Flex
       as="li"
@@ -21,23 +21,29 @@ const ListItem = ({ taskTitle }) => {
         {taskTitle}
       </Heading>
       <Link mt={50}>Check details</Link>
-      <Box mt={100}>
+      <Box mt={100} sx={{ display: 'flex', alignItems: 'center' }}>
         <Button
           bg="christi"
           mr={1}
           sx={{
+            width: '50px',
+            height: '40px',
+            padding: '10px',
             '&:hover': {
               cursor: 'pointer',
               bg: 'lightChristi',
             },
           }}
         >
-          <FontAwesomeIcon icon={faCheck} />
+          {isDone ? <FontAwesomeIcon icon={faCheck} /> : ''}
         </Button>
         <Button
           bg="crimson"
           mr={1}
           sx={{
+            width: '50px',
+            height: '40px',
+            padding: '10px',
             '&:hover': {
               cursor: 'pointer',
               bg: 'lightCrimson',
@@ -49,6 +55,9 @@ const ListItem = ({ taskTitle }) => {
         <Button
           bg="turbo"
           sx={{
+            width: '50px',
+            height: '40px',
+            padding: '10px',
             '&:hover': {
               cursor: 'pointer',
               bg: 'lightTurbo',
