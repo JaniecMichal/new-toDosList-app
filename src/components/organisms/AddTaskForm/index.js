@@ -29,7 +29,7 @@ const AddTaskForm = () => {
       px={20}
       py={10}
       sx={{
-        width: '100%',
+        width: '50%',
       }}
     >
       <SubHeader>Add task</SubHeader>
