@@ -11,6 +11,16 @@ const currentTasks = [
   { id: 2, title: 'Task1', description: 'Lorem ipsum......', done: false },
   { id: 3, title: 'Task1', description: 'Lorem ipsum......', done: false },
   { id: 4, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 5, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 6, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 7, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 8, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 9, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 10, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 11, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 12, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 13, title: 'Task1', description: 'Lorem ipsum......', done: false },
+  { id: 14, title: 'Task1', description: 'Lorem ipsum......', done: false },
 ];
 
 const TasksProvider = ({ children }) => {
