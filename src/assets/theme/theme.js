@@ -63,6 +63,7 @@ export const theme = {
       fontFamily: 'main',
       fontWeight: 'body',
       color: 'black',
+      bg: 'mercury',
     },
   },
 };
