@@ -27,6 +27,7 @@ const AddTaskForm = () => {
         py={20}
         sx={{
           width: '100%',
+          fontFamily: 'main',
           '&:hover': {
             bg: 'transparent',
             padding: '18px 30px',
