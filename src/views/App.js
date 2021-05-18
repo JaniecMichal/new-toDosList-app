@@ -5,14 +5,17 @@ import { theme } from 'assets/theme/theme.js';
 import MainTemplate from 'components/templates/MainTemplate';
 import AddTaskForm from 'components/organisms/AddTaskForm';
 import TasksList from 'components/organisms/TasksList';
+import TasksProvider from 'providers/TasksProvider';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <>
         <MainTemplate>
-          <AddTaskForm />
-          <TasksList />
+          <TasksProvider>
+            <AddTaskForm />
+            <TasksList />
+          </TasksProvider>
         </MainTemplate>
       </>
     </ThemeProvider>
