@@ -16,7 +16,7 @@ const TasksList = () => {
       <SubHeader>Task to do</SubHeader>
       <Grid as="ul" columns={['1fr 1fr']}>
         {tasks.map((task) => (
-          <ListItem key={task.id} taskTitle={task.title} />
+          <ListItem key={task.id} taskTitle={task.title} isDone={task.done} />
         ))}
       </Grid>
     </Box>
