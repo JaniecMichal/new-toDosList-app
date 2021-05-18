@@ -1,16 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Box, Grid } from 'theme-ui';
 import SubHeader from 'components/atoms/SubHeader';
 import ListItem from 'components/molecules/ListItem';
-
-const tasks = [
-  { id: 1, title: 'Task1', fullContent: 'Lorem ipsum......', done: false },
-  { id: 2, title: 'Task1', fullContent: 'Lorem ipsum......', done: false },
-  { id: 3, title: 'Task1', fullContent: 'Lorem ipsum......', done: false },
-  { id: 4, title: 'Task1', fullContent: 'Lorem ipsum......', done: false },
-];
+import { TasksContext } from 'providers/TasksProvider';
 
 const TasksList = () => {
+  const { tasks } = useContext(TasksContext);
   return (
     <Box
       sx={{
