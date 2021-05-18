@@ -11,6 +11,7 @@ const MainTemplate = ({ children }) => {
       bg="mercury"
       sx={{
         height: '100vh',
+        justifyItems: 'center',
       }}
     >
       {children}
