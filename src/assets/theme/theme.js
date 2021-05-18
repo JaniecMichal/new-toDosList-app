@@ -21,8 +21,13 @@ export const theme = {
     mercury: '#E3E3E3',
     white: '#fff',
     teal: '#008080',
+    confetti: '#EDE861',
     crimson: '#E61614',
+    lightCrimson: '#F83836',
     christi: '#35BC15',
+    lightChristi: '#57DE37',
+    turbo: '#FAF100',
+    lightTurbo: '#FCF322',
   },
   headings: {
     secondary: {
