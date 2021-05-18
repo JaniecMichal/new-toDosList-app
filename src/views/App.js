@@ -4,21 +4,35 @@ import { ThemeProvider } from 'theme-ui';
 import { theme } from 'assets/theme/theme.js';
 import MainTemplate from 'components/templates/MainTemplate';
 import AddTaskForm from 'components/organisms/AddTaskForm';
-import TasksList from 'components/organisms/TasksList';
+import TasksListView from './TasksListView.js';
 import TasksProvider from 'providers/TasksProvider';
+import { toAddNewTask, toTaskListView } from 'assets/helpers/routes.js';
+import Navigation from 'components/organisms/Navigation/index.js';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <>
-        <MainTemplate>
-          <TasksProvider>
-            <AddTaskForm />
-            <TasksList />
-          </TasksProvider>
-        </MainTemplate>
-      </>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <>
+          <MainTemplate>
+            <Navigation />
+            <TasksProvider>
+              <Switch>
+                <Route path={toAddNewTask()}>
+                  <AddTaskForm />
+                </Route>
+                <Route path={toTaskListView()}>
+                  <TasksListView />
+                </Route>
+                <Route>
+                  <Redirect to={toTaskListView()} />
+                </Route>
+              </Switch>
+            </TasksProvider>
+          </MainTemplate>
+        </>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
