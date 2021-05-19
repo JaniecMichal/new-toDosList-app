@@ -1,25 +1,35 @@
-import React, { useContext, useState } from 'react';
-import { Box, Button } from 'theme-ui';
+import React, { useContext } from 'react';
+import { Box, Button, Text } from 'theme-ui';
 import FormField from 'components/molecules/FormField';
 import SubHeader from 'components/atoms/SubHeader';
 import { initialFormValues } from './initialValues';
 import { TasksContext } from 'providers/TasksProvider';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { formValues } from 'recoilElements/atoms';
+import { charCountState } from 'recoilElements/selectors';
 
 const AddTaskForm = () => {
   const { handleAddTask } = useContext(TasksContext);
-  const [formValues, setFormValues] = useState(initialFormValues);
+  const [values, setValues] = useRecoilState(formValues);
+  const { titleCounter, descriptionCounter } = useRecoilValue(charCountState);
 
   const handleInputChange = (e) => {
-    setFormValues({
-      ...formValues,
+    if (e.target.value.length > 500 && e.target.name === 'taskDescription') {
+      return;
+    }
+    if (e.target.value.length > 50 && e.target.name === 'taskTitle') {
+      return;
+    }
+    setValues({
+      ...values,
       [e.target.name]: e.target.value,
     });
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    handleAddTask(formValues);
-    setFormValues(initialFormValues);
+    handleAddTask(values);
+    setValues(initialFormValues);
   };
 
   return (
@@ -36,16 +46,22 @@ const AddTaskForm = () => {
       <FormField
         label="Task title"
         name="taskTitle"
-        value={formValues.taskTitle}
+        value={values.taskTitle}
         onChange={handleInputChange}
       />
+      <Text as="p" mb={12}>
+        Title character count: {titleCounter}/50
+      </Text>
       <FormField
         label="Task description"
         name="taskDescription"
         asWhat="textarea"
-        value={formValues.taskDescription}
+        value={values.taskDescription}
         onChange={handleInputChange}
       />
+      <Text as="p" mb={12}>
+        Description character count: {descriptionCounter}/500
+      </Text>
       <Button
         bg="teal"
         color="white"
