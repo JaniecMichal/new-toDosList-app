@@ -57,6 +57,11 @@ export const theme = {
       fontWeight: 'heading',
       lineHeight: 'heading',
     },
+    navLink: {
+      textTransform: 'uppercase',
+      color: 'black',
+      fontSize: 18,
+    },
   },
   styles: {
     root: {
