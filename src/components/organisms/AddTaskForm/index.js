@@ -1,17 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Box, Button, Text } from 'theme-ui';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { nanoid } from 'nanoid';
 import FormField from 'components/molecules/FormField';
 import SubHeader from 'components/atoms/SubHeader';
 import { initialFormValues } from './initialValues';
 import { formValues, tasksState } from 'recoilElements/atoms';
 import { charCountState } from 'recoilElements/selectors';
+import { replaceItemAtIndex } from 'assets/helpers/helpers';
 
-const AddTaskForm = () => {
+const AddTaskForm = ({ taskToEdit, taskIndex }) => {
   const [values, setValues] = useRecoilState(formValues);
+  const [tasks, setTasks] = useRecoilState(tasksState);
   const { titleCounter, descriptionCounter } = useRecoilValue(charCountState);
-  const setTasks = useSetRecoilState(tasksState);
+
+  useEffect(() => {
+    if (!!taskToEdit) {
+      setValues({
+        taskTitle: taskToEdit.title,
+        taskDescription: taskToEdit.description,
+      });
+    }
+    return;
+  }, []);
 
   const handleInputChange = (e) => {
     if (e.target.value.length > 500 && e.target.name === 'taskDescription') {
@@ -24,6 +35,16 @@ const AddTaskForm = () => {
       ...values,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const submitEditedTask = (tasksValue) => {
+    const newList = replaceItemAtIndex(tasks, taskIndex, {
+      ...taskToEdit,
+      title: tasksValue.taskTitle,
+      description: tasksValue.taskDescription,
+    });
+
+    setTasks(newList);
   };
 
   const handleAddTask = (tasksValue) => {
@@ -40,7 +61,11 @@ const AddTaskForm = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    handleAddTask(values);
+    if (!!taskToEdit) {
+      submitEditedTask(values);
+    } else {
+      handleAddTask(values);
+    }
     setValues(initialFormValues);
   };
 
