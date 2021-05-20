@@ -1,11 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { ThemeProvider } from 'theme-ui';
+import { RecoilRoot } from 'recoil';
 import { theme } from 'assets/theme/theme.js';
 import MainTemplate from 'components/templates/MainTemplate';
 import AddTaskForm from 'components/organisms/AddTaskForm';
 import TasksListView from './TasksListView.js';
-import TasksProvider from 'providers/TasksProvider';
 import { toAddNewTask, toTaskListView } from 'assets/helpers/routes.js';
 import Navigation from 'components/organisms/Navigation/index.js';
 
@@ -16,7 +16,7 @@ function App() {
         <>
           <MainTemplate>
             <Navigation />
-            <TasksProvider>
+            <RecoilRoot>
               <Switch>
                 <Route path={toAddNewTask()}>
                   <AddTaskForm />
@@ -28,7 +28,7 @@ function App() {
                   <Redirect to={toTaskListView()} />
                 </Route>
               </Switch>
-            </TasksProvider>
+            </RecoilRoot>
           </MainTemplate>
         </>
       </ThemeProvider>
