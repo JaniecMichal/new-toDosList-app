@@ -77,6 +77,9 @@ const AddTaskForm = ({ taskToEdit, taskIndex }) => {
       py={10}
       sx={{
         width: '50%',
+        '@media screen and (max-width: 800px)': {
+          width: '100%',
+        },
       }}
     >
       <SubHeader>Add task</SubHeader>

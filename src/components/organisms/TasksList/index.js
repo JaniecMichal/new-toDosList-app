@@ -24,7 +24,13 @@ const TasksList = ({ tasks }) => {
     >
       <Box>
         <SubHeader>Task to do:</SubHeader>
-        <Flex>
+        <Flex
+          sx={{
+            '@media screen and (max-width: 800px)': {
+              flexDirection: 'column',
+            },
+          }}
+        >
           <Text mr={5} color="christi">
             Completed: {totalCompletedNum}
           </Text>
@@ -54,7 +60,22 @@ const TasksList = ({ tasks }) => {
           {!filter ? 'Hide done tasks' : 'Show all tasks'}
         </Button>
       </Box>
-      <Grid as="ul" columns={['1fr 1fr 1fr 1fr']}>
+      <Grid
+        as="ul"
+        columns={['1fr 1fr 1fr 1fr']}
+        p={0}
+        sx={{
+          '@media screen and (max-width: 1250px)': {
+            gridTemplateColumns: '1fr 1fr 1fr',
+          },
+          '@media screen and (max-width: 1000px)': {
+            gridTemplateColumns: '1fr 1fr',
+          },
+          '@media screen and (max-width: 800px)': {
+            gridTemplateColumns: '1fr',
+          },
+        }}
+      >
         {tasks.map((task) => (
           <ListItem key={task.id} task={task} />
         ))}

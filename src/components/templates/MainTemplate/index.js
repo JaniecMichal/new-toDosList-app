@@ -10,6 +10,9 @@ const MainTemplate = ({ children }) => {
       p={10}
       sx={{
         justifyItems: 'center',
+        '@media screen and (max-width: 800px)': {
+          gridTemplateColumns: '1fr',
+        },
       }}
     >
       {children}
