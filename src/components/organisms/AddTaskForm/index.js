@@ -1,17 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Box, Button, Text } from 'theme-ui';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { nanoid } from 'nanoid';
 import FormField from 'components/molecules/FormField';
 import SubHeader from 'components/atoms/SubHeader';
 import { initialFormValues } from './initialValues';
-import { TasksContext } from 'providers/TasksProvider';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { formValues } from 'recoilElements/atoms';
+import { formValues, tasksState } from 'recoilElements/atoms';
 import { charCountState } from 'recoilElements/selectors';
 
 const AddTaskForm = () => {
-  const { handleAddTask } = useContext(TasksContext);
   const [values, setValues] = useRecoilState(formValues);
   const { titleCounter, descriptionCounter } = useRecoilValue(charCountState);
+  const setTasks = useSetRecoilState(tasksState);
 
   const handleInputChange = (e) => {
     if (e.target.value.length > 500 && e.target.name === 'taskDescription') {
@@ -24,6 +24,18 @@ const AddTaskForm = () => {
       ...values,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleAddTask = (tasksValue) => {
+    setTasks((oldTasks) => [
+      {
+        id: nanoid(),
+        title: tasksValue.taskTitle,
+        description: tasksValue.taskDescription,
+        done: false,
+      },
+      ...oldTasks,
+    ]);
   };
 
   const handleOnSubmit = (e) => {
