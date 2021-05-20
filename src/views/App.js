@@ -4,10 +4,15 @@ import { ThemeProvider } from 'theme-ui';
 import { RecoilRoot } from 'recoil';
 import { theme } from 'assets/theme/theme.js';
 import MainTemplate from 'components/templates/MainTemplate';
-import AddTaskForm from 'components/organisms/AddTaskForm';
 import TasksListView from './TasksListView.js';
-import { toAddNewTask, toTaskListView } from 'assets/helpers/routes.js';
+import {
+  toAddNewTask,
+  toTaskListView,
+  toEditTask,
+} from 'assets/helpers/routes.js';
 import Navigation from 'components/organisms/Navigation/index.js';
+import EditTaskView from './EditTaskView.js';
+import AddTaskView from './AddTaskView.js';
 
 function App() {
   return (
@@ -19,7 +24,10 @@ function App() {
             <RecoilRoot>
               <Switch>
                 <Route path={toAddNewTask()}>
-                  <AddTaskForm />
+                  <AddTaskView />
+                </Route>
+                <Route path={toEditTask()}>
+                  <EditTaskView />
                 </Route>
                 <Route path={toTaskListView()}>
                   <TasksListView />
