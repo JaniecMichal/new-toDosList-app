@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useRecoilValue } from 'recoil';
 import TasksList from 'components/organisms/TasksList';
-import { TasksContext } from 'providers/TasksProvider';
+import { filteredTasksListState } from 'recoilElements/selectors';
 
 const TaskListView = () => {
-  const { tasks } = useContext(TasksContext);
+  const tasks = useRecoilValue(filteredTasksListState);
+
   return <TasksList tasks={tasks} />;
 };
 
