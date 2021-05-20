@@ -4,7 +4,7 @@ import { Box, Input, Label } from '@theme-ui/components';
 const FormField = ({ label, name, asWhat = 'input', onChange, value }) => {
   return (
     <Box mb={12}>
-      <Label htmlFor={name} mb={1}>
+      <Label htmlFor={name} mb={1} sx={{ fontWeight: '700' }}>
         {label}
       </Label>
       <Input
