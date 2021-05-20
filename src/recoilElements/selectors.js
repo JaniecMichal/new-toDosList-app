@@ -25,3 +25,19 @@ export const filteredTasksListState = selector({
     return list;
   },
 });
+
+export const tasksStatsState = selector({
+  key: 'tasksStatsState',
+  get: ({ get }) => {
+    const todoList = get(tasksState);
+    const totalNum = todoList.length;
+    const totalCompletedNum = todoList.filter((task) => task.done).length;
+    const totalUncompletedNum = totalNum - totalCompletedNum;
+
+    return {
+      totalNum,
+      totalCompletedNum,
+      totalUncompletedNum,
+    };
+  },
+});
