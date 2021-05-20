@@ -1,21 +1,16 @@
 import React from 'react';
-import { Box, Button, Flex, Heading, Link } from '@theme-ui/components';
+import { Box, Button, Flex, Heading } from '@theme-ui/components';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { tasksState } from 'recoilElements/atoms';
 import { useRecoilState } from 'recoil';
+import { toEditTask } from 'assets/helpers/routes';
+import { removeItemAtIndex, replaceItemAtIndex } from 'assets/helpers/helpers';
 
 const ListItem = ({ task }) => {
   const [tasks, setTasks] = useRecoilState(tasksState);
   const index = tasks.findIndex(({ id }) => id === task.id);
-
-  const replaceItemAtIndex = (arr, index, newValue) => {
-    return [...arr.slice(0, index), newValue, ...arr.slice(index + 1)];
-  };
-
-  const removeItemAtIndex = (arr, index) => {
-    return [...arr.slice(0, index), ...arr.slice(index + 1)];
-  };
 
   const toggleDone = () => {
     const newList = replaceItemAtIndex(tasks, index, {
@@ -34,20 +29,35 @@ const ListItem = ({ task }) => {
     <Flex
       as="li"
       sx={{
-        width: '250px',
+        width: '100%',
         height: '250px',
         flexDirection: 'column',
-        justifyContent: 'flex-start',
+        justifyContent: 'space-between',
         alignItems: 'center',
         bg: `${task.done ? 'scoripion' : 'confetti'}`,
+        padding: '10px',
+        a: {
+          color: 'teal',
+          textDecoration: 'none',
+          '&:hover': {
+            textDecoration: 'underline',
+            fontWeight: '700',
+          },
+        },
       }}
       mb={14}
     >
-      <Heading as="h3" mt={12}>
+      <Heading
+        as="h3"
+        sx={{
+          wordBreak: 'break-all',
+          whiteSpace: 'pre-wrap',
+        }}
+      >
         {task.title}
       </Heading>
-      <Link mt={50}>Check details</Link>
-      <Box mt={100} sx={{ display: 'flex', alignItems: 'center' }}>
+      <Link to={''}>Check details</Link>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Button
           onClick={toggleDone}
           bg="christi"
@@ -83,16 +93,22 @@ const ListItem = ({ task }) => {
         <Button
           bg="turbo"
           sx={{
+            display: 'block',
             width: '50px',
             height: '40px',
             padding: '10px',
+            a: {
+              color: 'inherit',
+            },
             '&:hover': {
               cursor: 'pointer',
               bg: 'lightTurbo',
             },
           }}
         >
-          <FontAwesomeIcon icon={faEdit} />
+          <Link to={toEditTask({ id: task.id })}>
+            <FontAwesomeIcon icon={faEdit} />
+          </Link>
         </Button>
       </Box>
     </Flex>
