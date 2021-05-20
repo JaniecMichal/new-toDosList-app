@@ -28,6 +28,7 @@ export const theme = {
     lightChristi: '#57DE37',
     turbo: '#FAF100',
     lightTurbo: '#FCF322',
+    scoripion: '#616161',
   },
   headings: {
     secondary: {
