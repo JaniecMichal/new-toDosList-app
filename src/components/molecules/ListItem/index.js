@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { tasksState } from 'recoilElements/atoms';
 import { useRecoilState } from 'recoil';
-import { toEditTask } from 'assets/helpers/routes';
+import { toEditTask, toTaskDetails } from 'assets/helpers/routes';
 import { removeItemAtIndex, replaceItemAtIndex } from 'assets/helpers/helpers';
 
 const ListItem = ({ task }) => {
@@ -37,7 +37,7 @@ const ListItem = ({ task }) => {
         bg: `${task.done ? 'scoripion' : 'confetti'}`,
         padding: '10px',
         a: {
-          color: 'teal',
+          color: `black`,
           textDecoration: 'none',
           '&:hover': {
             textDecoration: 'underline',
@@ -56,7 +56,7 @@ const ListItem = ({ task }) => {
       >
         {task.title}
       </Heading>
-      <Link to={''}>Check details</Link>
+      <Link to={toTaskDetails({ id: task.id })}>Check details</Link>
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
         <Button
           onClick={toggleDone}
@@ -98,7 +98,7 @@ const ListItem = ({ task }) => {
             height: '40px',
             padding: '10px',
             a: {
-              color: 'inherit',
+              color: 'white',
             },
             '&:hover': {
               cursor: 'pointer',

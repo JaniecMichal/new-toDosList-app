@@ -9,10 +9,12 @@ import {
   toAddNewTask,
   toTaskListView,
   toEditTask,
+  toTaskDetails,
 } from 'assets/helpers/routes.js';
 import Navigation from 'components/organisms/Navigation/index.js';
 import EditTaskView from './EditTaskView.js';
 import AddTaskView from './AddTaskView.js';
+import TaskDetailsView from './TaskDetailsView.js';
 
 function App() {
   return (
@@ -23,11 +25,14 @@ function App() {
             <Navigation />
             <RecoilRoot>
               <Switch>
-                <Route path={toAddNewTask()}>
-                  <AddTaskView />
+                <Route path={toTaskDetails()}>
+                  <TaskDetailsView />
                 </Route>
                 <Route path={toEditTask()}>
                   <EditTaskView />
+                </Route>
+                <Route path={toAddNewTask()}>
+                  <AddTaskView />
                 </Route>
                 <Route path={toTaskListView()}>
                   <TasksListView />
