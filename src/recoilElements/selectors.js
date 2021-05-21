@@ -20,7 +20,7 @@ export const filteredTasksListState = selector({
     const list = get(tasksState);
 
     if (filter === true) {
-      return list.filter((item) => !item.done);
+      return list.filter((item) => !item.completed);
     }
     return list;
   },
@@ -31,7 +31,7 @@ export const tasksStatsState = selector({
   get: ({ get }) => {
     const todoList = get(tasksState);
     const totalNum = todoList.length;
-    const totalCompletedNum = todoList.filter((task) => task.done).length;
+    const totalCompletedNum = todoList.filter((task) => task.completed).length;
     const totalUncompletedNum = totalNum - totalCompletedNum;
 
     return {
