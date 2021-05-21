@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
 import TasksList from 'components/organisms/TasksList';
 import { filteredTasksListState } from 'recoilElements/selectors';
 import { useApiData } from 'apiData/useApiData';
@@ -7,7 +7,7 @@ import { Spinner, Text } from '@theme-ui/components';
 import { tasksState } from 'recoilElements/atoms';
 
 const TaskListView = () => {
-  const [tasks, setTasks] = useRecoilState(tasksState);
+  const setTasks = useSetRecoilState(tasksState);
   const filtredTasks = useRecoilValue(filteredTasksListState);
   const appState = useApiData();
   console.log(appState);
