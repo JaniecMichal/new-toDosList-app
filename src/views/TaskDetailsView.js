@@ -18,9 +18,9 @@ const TaskDetailsView = () => {
         Task description: {detailedTask.description}
       </Text>
       <Text as="p" mt={5}>
-        Done:
-        <Text ml={1} color={detailedTask.done ? 'christi' : 'crimson'}>
-          {`${detailedTask.done}`}
+        completed:
+        <Text ml={1} color={detailedTask.completed ? 'christi' : 'crimson'}>
+          {`${detailedTask.completed}`}
         </Text>
       </Text>
     </Box>
