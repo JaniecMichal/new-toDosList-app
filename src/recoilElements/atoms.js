@@ -8,15 +8,9 @@ export const formValues = atom({
   },
 });
 
-const defaultTask = [
-  { id: 1, title: 'Task1', description: 'Lorem ipsum......', done: false },
-  { id: 2, title: 'Task1', description: 'Lorem ipsum......', done: false },
-  { id: 3, title: 'Task1', description: 'Lorem ipsum......', done: false },
-];
-
 export const tasksState = atom({
   key: 'tasks',
-  default: defaultTask,
+  default: [],
 });
 
 export const hideDoneTasks = atom({
