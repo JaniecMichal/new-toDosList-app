@@ -17,7 +17,7 @@ const Navigation = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        height: '100vh',
+        height: '100%',
         borderRight: '2px solid teal',
         paddingRight: 15,
         '@media screen and (max-width: 800px)': {
