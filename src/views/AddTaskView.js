@@ -1,8 +1,8 @@
-import AddTaskForm from 'components/organisms/AddTaskForm';
+import TaskForm from 'components/organisms/TaskForm';
 import React from 'react';
 
 const AddTaskView = () => {
-  return <AddTaskForm />;
+  return <TaskForm />;
 };
 
 export default AddTaskView;
