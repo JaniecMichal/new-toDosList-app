@@ -17,6 +17,18 @@ const Navigation = () => {
       sx={{
         display: 'flex',
         flexDirection: 'column',
+        height: '100vh',
+        borderRight: '2px solid teal',
+        paddingRight: 15,
+        '@media screen and (max-width: 800px)': {
+          display: 'sticky',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: 'auto',
+          borderRight: 'none',
+          borderBottom: '2px solid teal',
+        },
         a: {
           textDecoration: 'none',
           marginBottom: 12,
