@@ -15,7 +15,7 @@ const ListItem = ({ task }) => {
   const toggleDone = () => {
     const newList = replaceItemAtIndex(tasks, index, {
       ...task,
-      done: !task.done,
+      completed: !task.completed,
     });
     setTasks(newList);
   };
@@ -34,7 +34,7 @@ const ListItem = ({ task }) => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        bg: `${task.done ? 'scoripion' : 'confetti'}`,
+        bg: `${task.completed ? 'scoripion' : 'confetti'}`,
         padding: '10px',
         a: {
           color: `black`,
@@ -72,7 +72,7 @@ const ListItem = ({ task }) => {
             },
           }}
         >
-          {task.done ? <FontAwesomeIcon icon={faCheck} /> : ''}
+          {task.completed ? <FontAwesomeIcon icon={faCheck} /> : ''}
         </Button>
         <Button
           onClick={removeTask}
