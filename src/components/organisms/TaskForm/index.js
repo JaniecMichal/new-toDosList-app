@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Button, Text, Textarea } from 'theme-ui';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { nanoid } from 'nanoid';
 import { initialFormValues } from './initialFormValues';
 import { formValues, tasksState } from 'recoilElements/atoms';
 import { charCountState } from 'recoilElements/selectors';
 import { replaceItemAtIndex } from 'assets/helpers/helpers';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 const TaskForm = ({
   deactiveForm,
@@ -24,7 +22,7 @@ const TaskForm = ({
       return setValue(editedTask.title);
     }
     return setValue(initialFormValues);
-  }, [editedTask]);
+  }, [editedTask, setValue]);
 
   const handleInputChange = (e) => {
     if (e.target.value.length > 100) {
@@ -38,7 +36,7 @@ const TaskForm = ({
     setTasks((oldTasks) => {
       const newList = [
         {
-          id: nanoid(),
+          id: Number(oldTasks.length + 1),
           title: tasksValue.trim(),
           completed: false,
         },
