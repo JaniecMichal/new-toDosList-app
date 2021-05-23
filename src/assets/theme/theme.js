@@ -29,10 +29,7 @@ export const theme = {
   headings: {
     secondary: {
       fontSize: 24,
-      paddingBottom: 10,
       color: 'black',
-      borderBottom: '2px solid #222',
-      marginBottom: 12,
     },
   },
   forms: {
