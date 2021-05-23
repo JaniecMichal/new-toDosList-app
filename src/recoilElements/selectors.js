@@ -5,11 +5,8 @@ export const charCountState = selector({
   key: 'charCountState',
   get: ({ get }) => {
     const text = get(formValues);
-
-    return {
-      titleCounter: text.taskTitle.length,
-      descriptionCounter: text.taskDescription.length,
-    };
+    const titleCounter = text.length;
+    return { titleCounter };
   },
 });
 

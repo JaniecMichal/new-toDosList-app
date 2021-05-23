@@ -1,64 +1,28 @@
-import React, { useEffect } from 'react';
-import { Box, Button, Text } from 'theme-ui';
+import React from 'react';
+import { Box, Button, Text, Textarea } from 'theme-ui';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { nanoid } from 'nanoid';
-import FormField from 'components/molecules/FormField';
-import SubHeader from 'components/atoms/SubHeader';
 import { initialFormValues } from './initialFormValues';
 import { formValues, tasksState } from 'recoilElements/atoms';
 import { charCountState } from 'recoilElements/selectors';
-import { replaceItemAtIndex } from 'assets/helpers/helpers';
 
-const TaskForm = ({ taskToEdit, taskIndex }) => {
+const TaskForm = ({ deactiveForm }) => {
   const [values, setValues] = useRecoilState(formValues);
-  const [tasks, setTasks] = useRecoilState(tasksState);
-  const { titleCounter, descriptionCounter } = useRecoilValue(charCountState);
-
-  useEffect(() => {
-    if (!!taskToEdit) {
-      if (!!taskToEdit.taskDescription) {
-        setValues({
-          taskTitle: taskToEdit.title,
-          taskDescription: taskToEdit.description,
-        });
-      }
-      setValues({
-        taskTitle: taskToEdit.title,
-        taskDescription: 'no task description yet',
-      });
-    }
-    return;
-  }, []);
+  const [, setTasks] = useRecoilState(tasksState);
+  const { titleCounter } = useRecoilValue(charCountState);
 
   const handleInputChange = (e) => {
-    if (e.target.value.length > 500 && e.target.name === 'taskDescription') {
+    if (e.target.value.length > 100) {
       return;
     }
-    if (e.target.value.length > 50 && e.target.name === 'taskTitle') {
-      return;
-    }
-    setValues({
-      ...values,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const submitEditedTask = (tasksValue) => {
-    const newList = replaceItemAtIndex(tasks, taskIndex, {
-      ...taskToEdit,
-      title: tasksValue.taskTitle,
-      description: tasksValue.taskDescription,
-    });
-
-    setTasks(newList);
+    setValues(e.target.value);
   };
 
   const handleAddTask = (tasksValue) => {
     setTasks((oldTasks) => [
       {
         id: nanoid(),
-        title: tasksValue.taskTitle,
-        description: tasksValue.taskDescription,
+        title: tasksValue,
         completed: false,
       },
       ...oldTasks,
@@ -67,11 +31,7 @@ const TaskForm = ({ taskToEdit, taskIndex }) => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    if (!!taskToEdit) {
-      submitEditedTask(values);
-    } else {
-      handleAddTask(values);
-    }
+    handleAddTask(values);
     setValues(initialFormValues);
   };
 
@@ -83,45 +43,61 @@ const TaskForm = ({ taskToEdit, taskIndex }) => {
       py={10}
       sx={{
         width: '100%',
-        '@media screen and (max-width: 800px)': {
-          width: '100%',
-        },
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between',
+        border: `4px dashed`,
+        borderColor: 'pastelGreen',
       }}
     >
-      <SubHeader>{!!taskToEdit ? 'Edit task' : 'Add task'}</SubHeader>
-      <FormField
-        label="Task title"
-        name="taskTitle"
-        value={values.taskTitle}
-        onChange={handleInputChange}
-      />
-      <Text as="p" mb={12}>
-        Title character count: {titleCounter}/50
-      </Text>
-      <FormField
-        label="Task description"
-        name="taskDescription"
-        asWhat="textarea"
-        value={values.taskDescription}
-        onChange={handleInputChange}
-      />
-      <Text as="p" mb={12}>
-        Description character count: {descriptionCounter}/500
-      </Text>
+      <Box>
+        <Textarea
+          placeholder="Write task details"
+          value={values}
+          onChange={handleInputChange}
+          required
+          sx={{
+            height: '100px',
+            resize: 'none',
+            lineHeight: 1.25,
+          }}
+        />
+        <Text as="p" mt={12}>
+          Character counter: {titleCounter}/100
+        </Text>
+      </Box>
       <Button
-        bg="teal"
+        bg="transparent"
         color="white"
-        px={30}
-        py={20}
+        onClick={() => deactiveForm(false)}
         sx={{
           width: '100%',
           fontFamily: 'main',
+          padding: '8px 1px',
+          border: '2px solid #61DB92',
+          borderRadius: '20px',
+          color: 'pastelGreen',
           '&:hover': {
-            bg: 'transparent',
-            padding: '18px 30px',
-            border: '2px solid teal',
-            color: 'black',
             cursor: 'pointer',
+          },
+        }}
+      >
+        Cancel adding task
+      </Button>
+      <Button
+        bg="pastelGreen"
+        color="white"
+        sx={{
+          width: '100%',
+          fontFamily: 'main',
+          borderRadius: '20px',
+          padding: '8px 1px',
+          border: '2px solid #61DB92',
+          '&:hover': {
+            cursor: 'pointer',
+            bg: '#40BA70',
+            borderColor: '#40BA70',
           },
         }}
       >

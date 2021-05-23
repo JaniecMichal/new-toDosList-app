@@ -1,12 +1,15 @@
 import React from 'react';
-import { Box, Button, Flex, Heading } from '@theme-ui/components';
+import { Box, Flex, Heading } from '@theme-ui/components';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 import { tasksState } from 'recoilElements/atoms';
 import { useRecoilState } from 'recoil';
 import { toEditTask, toTaskDetails } from 'assets/helpers/routes';
 import { removeItemAtIndex, replaceItemAtIndex } from 'assets/helpers/helpers';
+import TaskActionButton from '../TaskActionButton';
+import { ReactComponent as UnCompletedIcon } from 'assets/images/uncompleted.svg';
+import { ReactComponent as CompletedIcon } from 'assets/images/completed.svg';
+import { ReactComponent as RemoveIcon } from 'assets/images/remove.svg';
+import { ReactComponent as EditIcon } from 'assets/images/edit.svg';
 
 const ListItem = ({ task }) => {
   const [tasks, setTasks] = useRecoilState(tasksState);
@@ -30,12 +33,12 @@ const ListItem = ({ task }) => {
       as="li"
       sx={{
         width: '100%',
-        height: '250px',
+        height: '100%',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
-        bg: `${task.completed ? 'scoripion' : 'confetti'}`,
-        padding: '10px',
+        bg: `${task.completed ? 'silver' : 'milkPunch'}`,
+        padding: '18px',
         a: {
           color: `black`,
           textDecoration: 'none',
@@ -52,64 +55,34 @@ const ListItem = ({ task }) => {
         sx={{
           wordBreak: 'break-all',
           whiteSpace: 'pre-wrap',
+          color: 'scoripion',
         }}
       >
         {task.title}
       </Heading>
       <Link to={toTaskDetails({ id: task.id })}>Check details</Link>
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Button
-          onClick={toggleDone}
-          bg="christi"
-          mr={1}
-          sx={{
-            width: '50px',
-            height: '40px',
-            padding: '10px',
-            '&:hover': {
-              cursor: 'pointer',
-              bg: 'lightChristi',
-            },
-          }}
-        >
-          {task.completed ? <FontAwesomeIcon icon={faCheck} /> : ''}
-        </Button>
-        <Button
-          onClick={removeTask}
-          bg="crimson"
-          mr={1}
-          sx={{
-            width: '50px',
-            height: '40px',
-            padding: '10px',
-            '&:hover': {
-              cursor: 'pointer',
-              bg: 'lightCrimson',
-            },
-          }}
-        >
-          <FontAwesomeIcon icon={faTrashAlt} />
-        </Button>
-        <Button
-          bg="turbo"
-          sx={{
-            display: 'block',
-            width: '50px',
-            height: '40px',
-            padding: '10px',
-            a: {
-              color: 'white',
-            },
-            '&:hover': {
-              cursor: 'pointer',
-              bg: 'lightTurbo',
-            },
-          }}
-        >
+      <Box
+        sx={{
+          width: '100px',
+          height: '20px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '2px 2px',
+          alignItems: 'center',
+          alignSelf: 'flex-end',
+        }}
+      >
+        <TaskActionButton onClickFunction={toggleDone}>
+          {task.completed ? <UnCompletedIcon /> : <CompletedIcon />}
+        </TaskActionButton>
+        <TaskActionButton onClickFunction={removeTask}>
+          <RemoveIcon />
+        </TaskActionButton>
+        <TaskActionButton>
           <Link to={toEditTask({ id: task.id })}>
-            <FontAwesomeIcon icon={faEdit} />
+            <EditIcon />
           </Link>
-        </Button>
+        </TaskActionButton>
       </Box>
     </Flex>
   );
