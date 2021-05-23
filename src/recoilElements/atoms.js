@@ -2,10 +2,7 @@ import { atom } from 'recoil';
 
 export const formValues = atom({
   key: 'formValues',
-  default: {
-    taskTitle: '',
-    taskDescription: '',
-  },
+  default: '',
 });
 
 export const tasksState = atom({
@@ -16,4 +13,9 @@ export const tasksState = atom({
 export const hideDoneTasks = atom({
   key: 'hideDoneTasks',
   default: false,
+});
+
+export const queryState = atom({
+  key: 'queryState',
+  default: '',
 });

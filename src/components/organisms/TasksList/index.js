@@ -1,19 +1,13 @@
-import React from 'react';
-import { Box, Grid, Button, Flex, Text } from 'theme-ui';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import SubHeader from 'components/atoms/SubHeader';
+import React, { useState } from 'react';
+import { Box, Grid } from 'theme-ui';
 import ListItem from 'components/molecules/ListItem';
-import { hideDoneTasks } from 'recoilElements/atoms';
-import { tasksStatsState } from 'recoilElements/selectors';
+import AddTask from '../AddTask';
+import TaskForm from '../TaskForm';
 
-const TasksList = ({ tasks }) => {
-  const [filter, setFilter] = useRecoilState(hideDoneTasks);
-  const { totalNum, totalCompletedNum, totalUncompletedNum } = useRecoilValue(
-    tasksStatsState
-  );
-
-  const updateFilter = () => {
-    setFilter(!filter);
+const TasksList = ({ tasks, storedTasks, setStoredTasks }) => {
+  const [editedTaskid, setEditedTaskId] = useState(null);
+  const toggleTaskEdit = (task) => {
+    editedTaskid !== task ? setEditedTaskId(task) : setEditedTaskId(null);
   };
 
   return (
@@ -22,49 +16,14 @@ const TasksList = ({ tasks }) => {
         width: '100%',
       }}
     >
-      <Box>
-        <SubHeader>Task to do:</SubHeader>
-        <Flex
-          sx={{
-            '@media screen and (max-width: 800px)': {
-              flexDirection: 'column',
-            },
-          }}
-        >
-          <Text mr={5} color="christi">
-            Completed: {totalCompletedNum}
-          </Text>
-          <Text mr={5} color="crimson">
-            Uncompleted: {totalUncompletedNum}
-          </Text>
-          <Text sx={{ fontWeight: '700' }}>Total: {totalNum}</Text>
-        </Flex>
-      </Box>
-      <Box my={12}>
-        <Button
-          onClick={updateFilter}
-          disabled={totalCompletedNum === 0 ? 'disabled' : ''}
-          sx={{
-            bg: 'teal',
-            marginRight: 2,
-            '&:hover': {
-              cursor: 'pointer',
-              bg: 'bombay',
-            },
-            '&:disabled': {
-              cursor: 'default',
-              bg: 'scoripion',
-            },
-          }}
-        >
-          {!filter ? 'Hide done tasks' : 'Show all tasks'}
-        </Button>
-      </Box>
       <Grid
         as="ul"
         columns={['1fr 1fr 1fr 1fr']}
-        p={0}
+        px={100}
         sx={{
+          gridTemplateRows: ' repeat(auto-fill, 250px)',
+          gridAutoRows: '250px',
+          listStyleType: 'none',
           '@media screen and (max-width: 1250px)': {
             gridTemplateColumns: '1fr 1fr 1fr',
           },
@@ -76,9 +35,37 @@ const TasksList = ({ tasks }) => {
           },
         }}
       >
-        {tasks.map((task) => (
-          <ListItem key={task.id} task={task} />
-        ))}
+        <Box
+          as="li"
+          sx={{ width: '100%', height: '250px' }}
+          key="AddingTaskItem"
+        >
+          <AddTask storedTasks={storedTasks} setStoredTasks={setStoredTasks} />
+        </Box>
+        {tasks.map((task) => {
+          const taskIndex = tasks.findIndex(({ id }) => id === task.id);
+          if (editedTaskid === task.id) {
+            return (
+              <TaskForm
+                key={taskIndex}
+                deactiveForm={setEditedTaskId}
+                editedTask={task}
+                editedTaskIndex={taskIndex}
+                setStoredTasks={setStoredTasks}
+              />
+            );
+          }
+
+          return (
+            <ListItem
+              key={taskIndex}
+              task={task}
+              index={taskIndex}
+              toggleTaskEdit={toggleTaskEdit}
+              setStoredTasks={setStoredTasks}
+            />
+          );
+        })}
       </Grid>
     </Box>
   );

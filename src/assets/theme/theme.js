@@ -17,35 +17,25 @@ export const theme = {
   },
   colors: {
     black: '#000',
-    bombay: '#ACAFB4',
-    mercury: '#E3E3E3',
+    mercury: '#E5E5E5',
     white: '#fff',
-    teal: '#008080',
-    confetti: '#EDE861',
+    milkPunch: '#FFF5D2',
+    silver: '#D3D3D3',
     crimson: '#E61614',
-    lightCrimson: '#F83836',
-    christi: '#35BC15',
-    lightChristi: '#57DE37',
-    turbo: '#FAF100',
-    lightTurbo: '#FCF322',
-    scoripion: '#616161',
+    scoripion: '#363636',
+    pastelGreen: '#61DB92',
+    gray: '#8A8A8A',
   },
   headings: {
     secondary: {
       fontSize: 24,
-      paddingBottom: 10,
       color: 'black',
-      borderBottom: '2px solid #222',
-      marginBottom: 12,
     },
   },
   forms: {
-    input: {
-      border: '2px solid #008080',
-    },
     textarea: {
       height: 200,
-      border: '2px solid #008080',
+      border: '2px solid #61DB92',
     },
   },
   text: {
@@ -62,6 +52,10 @@ export const theme = {
       textTransform: 'uppercase',
       color: 'black',
       fontSize: 18,
+    },
+    warning: {
+      fontSize: 10,
+      color: 'crimson',
     },
   },
   styles: {

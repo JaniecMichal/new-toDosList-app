@@ -5,15 +5,7 @@ import { RecoilRoot } from 'recoil';
 import { theme } from 'assets/theme/theme.js';
 import MainTemplate from 'components/templates/MainTemplate';
 import TasksListView from './TasksListView.js';
-import {
-  toAddNewTask,
-  toTaskListView,
-  toEditTask,
-  toTaskDetails,
-} from 'assets/helpers/routes.js';
-import Navigation from 'components/organisms/Navigation/index.js';
-import EditTaskView from './EditTaskView.js';
-import AddTaskView from './AddTaskView.js';
+import { toTaskListView, toTaskDetails } from 'assets/helpers/routes.js';
 import TaskDetailsView from './TaskDetailsView.js';
 
 function App() {
@@ -21,18 +13,11 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={theme}>
         <>
-          <MainTemplate>
-            <Navigation />
-            <RecoilRoot>
+          <RecoilRoot>
+            <MainTemplate>
               <Switch>
                 <Route path={toTaskDetails()}>
                   <TaskDetailsView />
-                </Route>
-                <Route path={toEditTask()}>
-                  <EditTaskView />
-                </Route>
-                <Route path={toAddNewTask()}>
-                  <AddTaskView />
                 </Route>
                 <Route path={toTaskListView()}>
                   <TasksListView />
@@ -41,8 +26,8 @@ function App() {
                   <Redirect to={toTaskListView()} />
                 </Route>
               </Switch>
-            </RecoilRoot>
-          </MainTemplate>
+            </MainTemplate>
+          </RecoilRoot>
         </>
       </ThemeProvider>
     </BrowserRouter>

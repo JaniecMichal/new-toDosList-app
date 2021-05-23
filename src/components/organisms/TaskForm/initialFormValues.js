@@ -1,4 +1,1 @@
-export const initialFormValues = {
-  taskTitle: '',
-  taskDescription: '',
-};
+export const initialFormValues = '';
