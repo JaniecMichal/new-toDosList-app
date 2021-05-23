@@ -12,15 +12,15 @@ const TaskListView = () => {
   const setTasks = useSetRecoilState(tasksState);
   const filtredTasks = useRecoilValue(filteredTasksListState);
   const appState = useApiData();
+  const storedTasksQuantity = +storedTasks.length;
 
   useEffect(() => {
     if (!!storedTasks) {
       setTasks(storedTasks);
     }
-  }, [storedTasks]);
+  }, [storedTasks, setTasks]);
 
   useEffect(() => {
-    const storedTasksQuantity = +storedTasks.length;
     if (appState.state === 'sucess' && storedTasksQuantity === 0) {
       setTasks(appState.tasks);
     }
