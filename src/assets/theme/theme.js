@@ -56,6 +56,10 @@ export const theme = {
       color: 'black',
       fontSize: 18,
     },
+    warning: {
+      fontSize: 10,
+      color: 'crimson',
+    },
   },
   styles: {
     root: {

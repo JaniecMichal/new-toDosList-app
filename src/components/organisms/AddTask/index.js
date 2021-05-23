@@ -2,11 +2,16 @@ import React, { useState } from 'react';
 import { Box, Button, Text } from '@theme-ui/components';
 import TaskForm from '../TaskForm';
 
-const AddTask = () => {
+const AddTask = ({ setStoredTasks }) => {
   const [formActivate, setFormActivate] = useState(false);
 
   if (formActivate) {
-    return <TaskForm deactiveForm={setFormActivate} />;
+    return (
+      <TaskForm
+        deactiveForm={setFormActivate}
+        setStoredTasks={setStoredTasks}
+      />
+    );
   }
 
   return (

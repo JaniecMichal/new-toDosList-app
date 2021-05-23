@@ -3,7 +3,7 @@ import { Box, Flex, Heading } from '@theme-ui/components';
 import { Link } from 'react-router-dom';
 import { tasksState } from 'recoilElements/atoms';
 import { useRecoilState } from 'recoil';
-import { toEditTask, toTaskDetails } from 'assets/helpers/routes';
+import { toTaskDetails } from 'assets/helpers/routes';
 import { removeItemAtIndex, replaceItemAtIndex } from 'assets/helpers/helpers';
 import TaskActionButton from '../TaskActionButton';
 import { ReactComponent as UnCompletedIcon } from 'assets/images/uncompleted.svg';
@@ -11,20 +11,21 @@ import { ReactComponent as CompletedIcon } from 'assets/images/completed.svg';
 import { ReactComponent as RemoveIcon } from 'assets/images/remove.svg';
 import { ReactComponent as EditIcon } from 'assets/images/edit.svg';
 
-const ListItem = ({ task }) => {
+const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
   const [tasks, setTasks] = useRecoilState(tasksState);
-  const index = tasks.findIndex(({ id }) => id === task.id);
 
   const toggleDone = () => {
     const newList = replaceItemAtIndex(tasks, index, {
       ...task,
       completed: !task.completed,
     });
+    setStoredTasks(newList);
     setTasks(newList);
   };
 
   const removeTask = () => {
     const newList = removeItemAtIndex(tasks, index);
+    setStoredTasks(newList);
     setTasks(newList);
   };
 
@@ -78,10 +79,12 @@ const ListItem = ({ task }) => {
         <TaskActionButton onClickFunction={removeTask}>
           <RemoveIcon />
         </TaskActionButton>
-        <TaskActionButton>
-          <Link to={toEditTask({ id: task.id })}>
-            <EditIcon />
-          </Link>
+        <TaskActionButton
+          onClickFunction={() => {
+            toggleTaskEdit(task.id);
+          }}
+        >
+          <EditIcon />
         </TaskActionButton>
       </Box>
     </Flex>

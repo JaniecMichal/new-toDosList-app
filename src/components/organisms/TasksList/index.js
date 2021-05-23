@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Grid } from 'theme-ui';
 import ListItem from 'components/molecules/ListItem';
 import AddTask from '../AddTask';
+import TaskForm from '../TaskForm';
 
-const TasksList = ({ tasks }) => {
+const TasksList = ({ tasks, storedTasks, setStoredTasks }) => {
+  const [editedTaskid, setEditedTaskId] = useState(null);
+  const toggleTaskEdit = (task) => {
+    editedTaskid !== task ? setEditedTaskId(task) : setEditedTaskId(null);
+  };
+
   return (
     <Box
       sx={{
@@ -29,12 +35,37 @@ const TasksList = ({ tasks }) => {
           },
         }}
       >
-        <Box as="li" sx={{ width: '100%', height: '250px' }}>
-          <AddTask />
+        <Box
+          as="li"
+          sx={{ width: '100%', height: '250px' }}
+          key="AddingTaskItem"
+        >
+          <AddTask storedTasks={storedTasks} setStoredTasks={setStoredTasks} />
         </Box>
-        {tasks.map((task) => (
-          <ListItem key={task.id} task={task} />
-        ))}
+        {tasks.map((task) => {
+          const taskIndex = tasks.findIndex(({ id }) => id === task.id);
+          if (editedTaskid === task.id) {
+            return (
+              <TaskForm
+                key={taskIndex}
+                deactiveForm={setEditedTaskId}
+                editedTask={task}
+                editedTaskIndex={taskIndex}
+                setStoredTasks={setStoredTasks}
+              />
+            );
+          }
+
+          return (
+            <ListItem
+              key={taskIndex}
+              task={task}
+              index={taskIndex}
+              toggleTaskEdit={toggleTaskEdit}
+              setStoredTasks={setStoredTasks}
+            />
+          );
+        })}
       </Grid>
     </Box>
   );

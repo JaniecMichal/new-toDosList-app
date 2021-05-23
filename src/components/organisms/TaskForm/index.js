@@ -1,38 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Button, Text, Textarea } from 'theme-ui';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { nanoid } from 'nanoid';
 import { initialFormValues } from './initialFormValues';
 import { formValues, tasksState } from 'recoilElements/atoms';
 import { charCountState } from 'recoilElements/selectors';
+import { replaceItemAtIndex } from 'assets/helpers/helpers';
+import { text } from '@fortawesome/fontawesome-svg-core';
 
-const TaskForm = ({ deactiveForm }) => {
-  const [values, setValues] = useRecoilState(formValues);
-  const [, setTasks] = useRecoilState(tasksState);
+const TaskForm = ({
+  deactiveForm,
+  editedTask,
+  editedTaskIndex,
+  setStoredTasks,
+}) => {
+  const [warningActive, setWarningActive] = useState(false);
+  const [value, setValue] = useRecoilState(formValues);
+  const [tasks, setTasks] = useRecoilState(tasksState);
   const { titleCounter } = useRecoilValue(charCountState);
+
+  useEffect(() => {
+    if (!!editedTask) {
+      return setValue(editedTask.title);
+    }
+    return setValue(initialFormValues);
+  }, [editedTask]);
 
   const handleInputChange = (e) => {
     if (e.target.value.length > 100) {
       return;
     }
-    setValues(e.target.value);
+    setValue(e.target.value);
+    setWarningActive(false);
   };
 
   const handleAddTask = (tasksValue) => {
-    setTasks((oldTasks) => [
-      {
-        id: nanoid(),
-        title: tasksValue,
-        completed: false,
-      },
-      ...oldTasks,
-    ]);
+    setTasks((oldTasks) => {
+      const newList = [
+        {
+          id: nanoid(),
+          title: tasksValue.trim(),
+          completed: false,
+        },
+        ...oldTasks,
+      ];
+      setStoredTasks(newList);
+      return newList;
+    });
+  };
+
+  const handleEditTask = (newTaskValue) => {
+    const newList = replaceItemAtIndex(tasks, editedTaskIndex, {
+      ...editedTask,
+      title: newTaskValue,
+    });
+    setStoredTasks(newList);
+    setTasks(newList);
   };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    handleAddTask(values);
-    setValues(initialFormValues);
+    if (+value.trim().length === 0) {
+      setWarningActive(true);
+      return;
+    }
+    if (!!editedTask) {
+      handleEditTask(value);
+      deactiveForm(null);
+    } else {
+      handleAddTask(value);
+    }
+    setValue(initialFormValues);
   };
 
   return (
@@ -54,7 +92,7 @@ const TaskForm = ({ deactiveForm }) => {
       <Box>
         <Textarea
           placeholder="Write task details"
-          value={values}
+          value={value}
           onChange={handleInputChange}
           required
           sx={{
@@ -63,7 +101,17 @@ const TaskForm = ({ deactiveForm }) => {
             lineHeight: 1.25,
           }}
         />
-        <Text as="p" mt={12}>
+        {warningActive && (
+          <Text variant={'text.warning'}>
+            You can't submit task only with white characetrs...
+          </Text>
+        )}
+        <Text
+          as="p"
+          mt={10}
+          mb={0}
+          color={+titleCounter === 100 ? 'crimson' : ''}
+        >
           Character counter: {titleCounter}/100
         </Text>
       </Box>

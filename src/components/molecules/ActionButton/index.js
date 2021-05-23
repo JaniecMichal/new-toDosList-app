@@ -8,9 +8,6 @@ import { hideDoneTasks } from 'recoilElements/atoms';
 const ActionButton = () => {
   const [filter, setFilter] = useRecoilState(hideDoneTasks);
 
-  const updateFilter = () => {
-    setFilter(!filter);
-  };
   return (
     <Flex
       sx={{
