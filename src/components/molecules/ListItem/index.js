@@ -74,7 +74,7 @@ const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
         }}
       >
         <TaskActionButton onClickFunction={toggleDone}>
-          {task.completed ? <UnCompletedIcon /> : <CompletedIcon />}
+          {!task.completed ? <UnCompletedIcon /> : <CompletedIcon />}
         </TaskActionButton>
         <TaskActionButton onClickFunction={removeTask}>
           <RemoveIcon />
