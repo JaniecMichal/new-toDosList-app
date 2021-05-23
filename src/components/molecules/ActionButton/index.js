@@ -24,8 +24,8 @@ const ActionButton = () => {
       as="button"
       onClick={() => setFilter(!filter)}
     >
-      <Text mr={2}>{!filter ? 'Show finished tasks' : 'Show all tasks'}</Text>
-      {!filter ? <CompletedIcon /> : <UnCompletedIcon />}
+      {filter ? <CompletedIcon /> : <UnCompletedIcon />}
+      <Text ml={2}>{!filter ? 'Show finished tasks' : 'Show all tasks'}</Text>
     </Flex>
   );
 };
