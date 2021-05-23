@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { formValues, hideDoneTasks, tasksState } from './atoms';
+import { formValues, hideDoneTasks, tasksState, queryState } from './atoms';
 
 export const charCountState = selector({
   key: 'charCountState',
@@ -36,5 +36,20 @@ export const tasksStatsState = selector({
       totalCompletedNum,
       totalUncompletedNum,
     };
+  },
+});
+
+export const selectedTasksByQuery = selector({
+  key: 'selectedTasksByQuery',
+  get: ({ get }) => {
+    const query = get(queryState);
+    const tasks = get(tasksState);
+
+    if (!query || query.trim() === '') {
+      return tasks;
+    }
+    return tasks.filter(({ title }) =>
+      title.toUpperCase().includes(query.trim().toUpperCase())
+    );
   },
 });

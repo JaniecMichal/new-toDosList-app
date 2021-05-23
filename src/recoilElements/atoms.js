@@ -14,3 +14,8 @@ export const hideDoneTasks = atom({
   key: 'hideDoneTasks',
   default: false,
 });
+
+export const queryState = atom({
+  key: 'queryState',
+  default: '',
+});

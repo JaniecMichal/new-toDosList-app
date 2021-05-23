@@ -1,18 +1,30 @@
 import React, { useEffect } from 'react';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import TasksList from 'components/organisms/TasksList';
-import { filteredTasksListState } from 'recoilElements/selectors';
+import {
+  filteredTasksListState,
+  selectedTasksByQuery,
+} from 'recoilElements/selectors';
 import { useApiData } from 'hooks/useApiData';
 import { Spinner, Text } from '@theme-ui/components';
-import { tasksState } from 'recoilElements/atoms';
+import { queryState, tasksState } from 'recoilElements/atoms';
 import { useLocalStorageState } from 'hooks/useLocalStorage';
 
 const TaskListView = () => {
   const [storedTasks, setStoredTasks] = useLocalStorageState('toDo-tasks', []);
   const setTasks = useSetRecoilState(tasksState);
+  const query = useRecoilValue(queryState);
   const filtredTasks = useRecoilValue(filteredTasksListState);
+  const searchingTasks = useRecoilValue(selectedTasksByQuery);
   const appState = useApiData();
   const storedTasksQuantity = +storedTasks.length;
+
+  useEffect(() => {
+    if (!!query) {
+      return setTasks(searchingTasks);
+    }
+    return setTasks(storedTasks);
+  }, [query, setTasks]);
 
   useEffect(() => {
     if (!!storedTasks) {
