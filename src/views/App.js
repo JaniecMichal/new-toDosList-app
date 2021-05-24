@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, HashRouter } from 'react-router-dom';
 import { ThemeProvider } from 'theme-ui';
 import { RecoilRoot } from 'recoil';
 import { theme } from 'assets/theme/theme.js';
@@ -10,7 +10,7 @@ import TaskDetailsView from './TaskDetailsView.js';
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ThemeProvider theme={theme}>
         <>
           <RecoilRoot>
@@ -30,7 +30,7 @@ function App() {
           </RecoilRoot>
         </>
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
