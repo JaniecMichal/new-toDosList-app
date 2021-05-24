@@ -15,6 +15,10 @@ const MainHeader = () => {
         position: 'sticky',
         top: 0,
         left: 0,
+        '@media screen and (max-width: 700px)': {
+          flexDirection: 'column',
+          justifyContent: 'center',
+        },
       }}
     >
       <Heading color="pastelGreen" as="h1">

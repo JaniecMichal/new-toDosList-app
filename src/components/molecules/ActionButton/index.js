@@ -20,6 +20,9 @@ const ActionButton = () => {
         '&:hover': {
           cursor: 'pointer',
         },
+        '@media screen and (max-width: 700px)': {
+          marginTop: '12px',
+        },
       }}
       as="button"
       onClick={() => setFilter(!filter)}

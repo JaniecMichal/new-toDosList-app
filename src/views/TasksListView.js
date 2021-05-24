@@ -23,7 +23,7 @@ const TaskListView = () => {
     if (!!query) {
       return setTasks(searchingTasks);
     }
-    return setTasks(storedTasks);
+    return setTasks(filtredTasks);
   }, [query, setTasks]);
 
   useEffect(() => {

@@ -29,7 +29,7 @@ const Searching = () => {
     >
       <Input
         sx={{
-          width: '400px',
+          width: '100%',
           maxWidth: '500px',
           padding: '12px 29px',
           bg: 'white',

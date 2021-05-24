@@ -8,7 +8,14 @@ const Statistic = () => {
     tasksStatsState
   );
   return (
-    <Flex color="gray">
+    <Flex
+      color="gray"
+      sx={{
+        '@media screen and (max-width: 700px)': {
+          marginTop: '12px',
+        },
+      }}
+    >
       <Text as="p" mr={10}>
         Completed:
         <Text ml={1} color="pastelGreen">
