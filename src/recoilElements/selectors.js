@@ -10,19 +10,6 @@ export const charCountState = selector({
   },
 });
 
-export const filteredTasksListState = selector({
-  key: 'filteredTasksListState',
-  get: ({ get }) => {
-    const filter = get(hideDoneTasks);
-    const list = get(tasksState);
-
-    if (filter === true) {
-      return list.filter((item) => !item.completed);
-    }
-    return list;
-  },
-});
-
 export const tasksStatsState = selector({
   key: 'tasksStatsState',
   get: ({ get }) => {

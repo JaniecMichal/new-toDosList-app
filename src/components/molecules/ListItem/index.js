@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Flex, Heading } from '@theme-ui/components';
+import { Box, Heading } from '@theme-ui/components';
 import { Link } from 'react-router-dom';
-import { tasksState } from 'recoilElements/atoms';
-import { useRecoilState } from 'recoil';
+import { hideDoneTasks, tasksState } from 'recoilElements/atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { toTaskDetails } from 'assets/helpers/routes';
 import { removeItemAtIndex, replaceItemAtIndex } from 'assets/helpers/helpers';
 import TaskActionButton from '../TaskActionButton';
@@ -13,6 +13,9 @@ import { ReactComponent as EditIcon } from 'assets/images/edit.svg';
 
 const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
   const [tasks, setTasks] = useRecoilState(tasksState);
+  const filter = useRecoilValue(hideDoneTasks);
+  console.log(filter);
+  console.log(task.completed);
 
   const toggleDone = () => {
     const newList = replaceItemAtIndex(tasks, index, {
@@ -30,9 +33,10 @@ const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
   };
 
   return (
-    <Flex
+    <Box
       as="li"
       sx={{
+        display: `${filter && task.completed ? 'none' : 'flex'}`,
         width: '100%',
         height: '100%',
         flexDirection: 'column',
@@ -87,7 +91,7 @@ const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
           <EditIcon />
         </TaskActionButton>
       </Box>
-    </Flex>
+    </Box>
   );
 };
 
