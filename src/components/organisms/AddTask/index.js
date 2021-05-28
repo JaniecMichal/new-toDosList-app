@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Box, Button, Text } from '@theme-ui/components';
 import TaskForm from '../TaskForm';
 
-const AddTask = ({ setStoredTasks }) => {
+const AddTask = ({ setStoredTasks, disabled }) => {
   const [formActivate, setFormActivate] = useState(false);
+  console.log(disabled);
 
   if (formActivate) {
     return (
@@ -17,13 +18,14 @@ const AddTask = ({ setStoredTasks }) => {
   return (
     <Button
       onClick={() => setFormActivate(!formActivate)}
+      disabled={disabled}
       sx={{
         width: '100%',
         height: '100%',
         bg: 'transparent',
-        color: 'pastelGreen',
+        color: `${disabled ? 'gray' : 'pastelGreen'}`,
         border: `4px dashed`,
-        borderColor: 'pastelGreen',
+        borderColor: `${disabled ? 'gray' : 'pastelGreen'}`,
         fontWeight: '700',
         fontSize: 24,
         '&:hover': {

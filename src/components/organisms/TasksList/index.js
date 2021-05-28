@@ -40,7 +40,11 @@ const TasksList = ({ tasks, storedTasks, setStoredTasks }) => {
           sx={{ width: '100%', height: '250px' }}
           key="AddingTaskItem"
         >
-          <AddTask storedTasks={storedTasks} setStoredTasks={setStoredTasks} />
+          <AddTask
+            storedTasks={storedTasks}
+            setStoredTasks={setStoredTasks}
+            disabled={!!editedTaskid ? true : false}
+          />
         </Box>
         {tasks.map((task) => {
           const taskIndex = tasks.findIndex(({ id }) => id === task.id);
