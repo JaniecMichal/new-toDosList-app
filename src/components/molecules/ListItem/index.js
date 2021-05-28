@@ -14,8 +14,6 @@ import { ReactComponent as EditIcon } from 'assets/images/edit.svg';
 const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
   const [tasks, setTasks] = useRecoilState(tasksState);
   const filter = useRecoilValue(hideDoneTasks);
-  console.log(filter);
-  console.log(task.completed);
 
   const toggleDone = () => {
     const newList = replaceItemAtIndex(tasks, index, {
