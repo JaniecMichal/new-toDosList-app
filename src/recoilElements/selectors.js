@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import { formValues, hideDoneTasks, tasksState, queryState } from './atoms';
+import { formValues, tasksState, queryState } from './atoms';
 
 export const charCountState = selector({
   key: 'charCountState',
