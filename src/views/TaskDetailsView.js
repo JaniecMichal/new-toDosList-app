@@ -1,19 +1,25 @@
-import React from 'react';
-import { Box, Text, Flex, Heading } from '@theme-ui/components';
+import React, { useEffect } from 'react';
+import { Box, Flex, Text, Heading, Spinner } from '@theme-ui/components';
 import { useParams } from 'react-router';
-import { useRecoilValue } from 'recoil';
-import { tasksState } from 'recoilElements/atoms';
 import SubHeader from 'components/atoms/SubHeader';
 import { Link } from 'react-router-dom';
 import { toTaskListView } from 'assets/helpers/routes';
+import { useAPI } from 'hooks/useAPI';
 
 const TaskDetailsView = () => {
   const { id } = useParams();
-  const tasks = useRecoilValue(tasksState);
-  const index = tasks.findIndex((task) => task.id === +id);
-  const detailedTask = tasks[index];
+  const { sendGETRequest, response, loading, setLoading, error } = useAPI();
 
-  if (!tasks.length) {
+  useEffect(() => {
+    setLoading(true);
+    sendGETRequest(id);
+  }, [id, setLoading, sendGETRequest]);
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  if (error || !response) {
     return (
       <Box
         sx={{
@@ -38,6 +44,7 @@ const TaskDetailsView = () => {
       </Box>
     );
   }
+
   return (
     <Box sx={{ width: '100%' }} bg="milkPunch" p={30}>
       <Flex
@@ -66,17 +73,17 @@ const TaskDetailsView = () => {
       <Text as="p" mt={5}>
         Task description:
         <Text ml={1} sx={{ fontWeight: '700' }}>
-          {detailedTask.title}
+          {response.title}
         </Text>
       </Text>
       <Text as="p" mt={5}>
         Status:
         <Text
           ml={1}
-          color={detailedTask.completed ? 'pastelGreen' : 'crimson'}
+          color={response.completed ? 'pastelGreen' : 'crimson'}
           sx={{ fontWeight: '700', textTransform: 'uppercase' }}
         >
-          {detailedTask.completed ? 'completed' : 'uncompleted'}
+          {response.completed ? 'completed' : 'uncompleted'}
         </Text>
       </Text>
     </Box>
