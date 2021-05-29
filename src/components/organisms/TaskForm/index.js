@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Text, Textarea } from 'theme-ui';
+import { Box, Button, Text, Textarea, Spinner } from 'theme-ui';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { initialFormValues } from './initialFormValues';
 import { formValues, tasksState } from 'recoilElements/atoms';
 import { charCountState } from 'recoilElements/selectors';
 import { replaceItemAtIndex } from 'assets/helpers/helpers';
+import { useAPI } from 'hooks/useAPI';
+import useModal from 'components/organisms/Modal/useModal';
 
 const TaskForm = ({
   deactiveForm,
@@ -12,10 +14,12 @@ const TaskForm = ({
   editedTaskIndex,
   setStoredTasks,
 }) => {
-  const [warningActive, setWarningActive] = useState(false);
+  const [isWarningActive, setWarningActive] = useState(false);
   const [value, setValue] = useRecoilState(formValues);
   const [tasks, setTasks] = useRecoilState(tasksState);
   const { titleCounter } = useRecoilValue(charCountState);
+  const { Modal, isOpen, handleOpenModal, handleCloseModal } = useModal();
+  const { sendRequest, response, loading, setLoading } = useAPI();
 
   useEffect(() => {
     if (!!editedTask) {
@@ -33,15 +37,17 @@ const TaskForm = ({
   };
 
   const handleAddTask = (tasksValue) => {
+    const newTask = {
+      id: Number(tasks.length + 1),
+      user_id: 17,
+      title: tasksValue.trim(),
+      completed: false,
+    };
+
+    setLoading(true);
+    sendRequest(JSON.stringify(newTask), 'POST');
     setTasks((oldTasks) => {
-      const newList = [
-        {
-          id: Number(oldTasks.length + 1),
-          title: tasksValue.trim(),
-          completed: false,
-        },
-        ...oldTasks,
-      ];
+      const newList = [newTask, ...oldTasks];
       setStoredTasks(newList);
       return newList;
     });
@@ -68,8 +74,14 @@ const TaskForm = ({
     } else {
       handleAddTask(value);
     }
+    console.log(response);
+    handleOpenModal();
     setValue(initialFormValues);
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <Box
@@ -99,7 +111,7 @@ const TaskForm = ({
             lineHeight: 1.25,
           }}
         />
-        {warningActive && (
+        {isWarningActive && (
           <Text variant={'text.warning'}>
             You can't submit task only with white characetrs...
           </Text>
@@ -149,6 +161,13 @@ const TaskForm = ({
       >
         Submit task
       </Button>
+      {isOpen ? (
+        <Modal handleClose={handleCloseModal}>
+          {response === 201
+            ? 'Your new task has been added correctly'
+            : 'Your task has not been sendend to database. Task added locally only'}
+        </Modal>
+      ) : null}
     </Box>
   );
 };
