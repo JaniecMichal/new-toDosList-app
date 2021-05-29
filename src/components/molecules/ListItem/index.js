@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Heading } from '@theme-ui/components';
+import { Box, Heading, Spinner } from '@theme-ui/components';
 import { Link } from 'react-router-dom';
 import { hideDoneTasks, tasksState } from 'recoilElements/atoms';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -10,25 +10,34 @@ import { ReactComponent as UnCompletedIcon } from 'assets/images/uncompleted.svg
 import { ReactComponent as CompletedIcon } from 'assets/images/completed.svg';
 import { ReactComponent as RemoveIcon } from 'assets/images/remove.svg';
 import { ReactComponent as EditIcon } from 'assets/images/edit.svg';
+import { useAPI } from 'hooks/useAPI';
 
 const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
   const [tasks, setTasks] = useRecoilState(tasksState);
   const filter = useRecoilValue(hideDoneTasks);
+  const { sendRequest, loading, setLoading } = useAPI();
 
   const toggleDone = () => {
-    const newList = replaceItemAtIndex(tasks, index, {
-      ...task,
-      completed: !task.completed,
-    });
+    const changedTask = { ...task, completed: !task.completed };
+    const newList = replaceItemAtIndex(tasks, index, changedTask);
+    setLoading(true);
+    sendRequest(changedTask, 'PUT', changedTask.id);
     setStoredTasks(newList);
     setTasks(newList);
   };
 
   const removeTask = () => {
+    const deletedItem = task;
     const newList = removeItemAtIndex(tasks, index);
+    setLoading(true);
+    sendRequest(deletedItem, 'DELETE', deletedItem.id);
     setStoredTasks(newList);
     setTasks(newList);
   };
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <Box
