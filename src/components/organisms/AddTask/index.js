@@ -4,7 +4,6 @@ import TaskForm from '../TaskForm';
 
 const AddTask = ({ setStoredTasks, disabled }) => {
   const [formActivate, setFormActivate] = useState(false);
-  console.log(disabled);
 
   if (formActivate) {
     return (
