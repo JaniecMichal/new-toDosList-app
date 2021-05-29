@@ -5,6 +5,11 @@ export const formValues = atom({
   default: '',
 });
 
+export const currentUserState = atom({
+  key: 'user',
+  default: '',
+});
+
 export const tasksState = atom({
   key: 'tasks',
   default: [],
