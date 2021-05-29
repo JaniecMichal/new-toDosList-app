@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Text, Textarea, Spinner } from 'theme-ui';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { initialFormValues } from './initialFormValues';
-import { formValues, tasksState } from 'recoilElements/atoms';
+import { currentUserState, formValues, tasksState } from 'recoilElements/atoms';
 import { charCountState } from 'recoilElements/selectors';
 import { replaceItemAtIndex } from 'assets/helpers/helpers';
 import { useAPI } from 'hooks/useAPI';
@@ -14,6 +14,7 @@ const TaskForm = ({
   editedTaskIndex,
   setStoredTasks,
 }) => {
+  const currentUser = useRecoilValue(currentUserState);
   const [isWarningActive, setWarningActive] = useState(false);
   const [value, setValue] = useRecoilState(formValues);
   const [tasks, setTasks] = useRecoilState(tasksState);
@@ -39,7 +40,7 @@ const TaskForm = ({
   const handleAddTask = (tasksValue) => {
     const newTask = {
       id: Number(tasks.length + 1),
-      user_id: 17,
+      user_id: currentUser.id,
       title: tasksValue.trim(),
       completed: false,
     };
@@ -74,7 +75,6 @@ const TaskForm = ({
     } else {
       handleAddTask(value);
     }
-    console.log(response);
     handleOpenModal();
     setValue(initialFormValues);
   };
