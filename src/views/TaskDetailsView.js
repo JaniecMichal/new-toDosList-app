@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box, Flex, Text, Heading, Spinner } from '@theme-ui/components';
 import { useParams } from 'react-router';
 import SubHeader from 'components/atoms/SubHeader';
