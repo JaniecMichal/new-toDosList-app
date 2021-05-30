@@ -65,10 +65,20 @@ const TaskForm = ({
   };
 
   const handleEditTask = (newTaskValue) => {
-    const newList = replaceItemAtIndex(tasks, editedTaskIndex, {
+    const editedTaskToSend = {
       ...editedTask,
       title: newTaskValue,
-    });
+    };
+
+    setLoading(true);
+    sendRequest(editedTaskToSend, 'PUT', editedTaskToSend.id);
+    setLoading(false);
+
+    const newList = replaceItemAtIndex(
+      tasks,
+      editedTaskIndex,
+      editedTaskToSend
+    );
     setStoredTasks(newList);
     setTasks(newList);
   };
