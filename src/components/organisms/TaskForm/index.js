@@ -140,6 +140,11 @@ const TaskForm = ({
           mt={10}
           mb={0}
           color={+titleCounter === 100 ? 'crimson' : ''}
+          sx={{
+            '@media screen and (max-width: 350px)': {
+              fontSize: '12px',
+            },
+          }}
         >
           Character counter: {titleCounter}/100
         </Text>
@@ -158,6 +163,9 @@ const TaskForm = ({
           '&:hover': {
             cursor: 'pointer',
           },
+          '@media screen and (max-width: 350px)': {
+            fontSize: '12px',
+          },
         }}
       >
         Cancel adding task
@@ -175,6 +183,9 @@ const TaskForm = ({
             cursor: 'pointer',
             bg: '#40BA70',
             borderColor: '#40BA70',
+          },
+          '@media screen and (max-width: 350px)': {
+            fontSize: '12px',
           },
         }}
       >

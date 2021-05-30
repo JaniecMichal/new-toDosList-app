@@ -14,7 +14,7 @@ const Statistic = () => {
         '@media screen and (max-width: 700px)': {
           marginTop: '12px',
         },
-        '@media screen and (max-width: 320px)': {
+        '@media screen and (max-width: 350px)': {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'flex-start',

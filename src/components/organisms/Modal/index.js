@@ -32,6 +32,10 @@ const Modal = ({ handleClose, children }) => {
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
+        '@media screen and (max-width: 600px)': {
+          minWidth: '90%',
+          borderRadius: '10%',
+        },
       }}
     >
       <Heading as="h4">Confirmation</Heading>
