@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Heading } from '@theme-ui/components';
-import Statistic from '../Statistic';
+import Statistic from '../../molecules/Statistic';
 
 const MainHeader = () => {
   return (
@@ -15,9 +15,13 @@ const MainHeader = () => {
         position: 'sticky',
         top: 0,
         left: 0,
+        zIndex: '100',
         '@media screen and (max-width: 700px)': {
           flexDirection: 'column',
           justifyContent: 'center',
+        },
+        '@media screen and (max-width: 500px)': {
+          padding: '16px 32px',
         },
       }}
     >
