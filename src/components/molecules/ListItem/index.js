@@ -22,6 +22,7 @@ const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
     const newList = replaceItemAtIndex(tasks, index, changedTask);
     setLoading(true);
     sendRequest(changedTask, 'PUT', changedTask.id);
+    setLoading(false);
     setStoredTasks(newList);
     setTasks(newList);
   };
@@ -31,6 +32,7 @@ const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
     const newList = removeItemAtIndex(tasks, index);
     setLoading(true);
     sendRequest(deletedItem, 'DELETE', deletedItem.id);
+    setLoading(false);
     setStoredTasks(newList);
     setTasks(newList);
   };
