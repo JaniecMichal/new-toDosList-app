@@ -70,6 +70,9 @@ const ListItem = ({ task, index, toggleTaskEdit, setStoredTasks }) => {
           wordBreak: 'break-all',
           whiteSpace: 'pre-wrap',
           color: 'scoripion',
+          '@media screen and (max-width:320px)': {
+            fontSize: 14,
+          },
         }}
       >
         {task.title}
