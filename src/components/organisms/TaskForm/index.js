@@ -20,7 +20,8 @@ const TaskForm = ({
   const [tasks, setTasks] = useRecoilState(tasksState);
   const { titleCounter } = useRecoilValue(charCountState);
   const { Modal, isOpen, handleOpenModal, handleCloseModal } = useModal();
-  const { sendRequest, response, loading, setLoading } = useAPI();
+  const { sendRequest, loading, setLoading } = useAPI();
+  const [responseStatus, setResponseStatus] = useState(null);
 
   useEffect(() => {
     if (!!editedTask) {
@@ -37,18 +38,27 @@ const TaskForm = ({
     setWarningActive(false);
   };
 
-  const handleAddTask = (tasksValue) => {
-    const newTask = {
-      id: Number(tasks.length + 1),
+  const handleSendTask = (tasksValue) => {
+    const newTaskToSend = {
       user_id: currentUser.id,
       title: tasksValue.trim(),
       completed: false,
     };
 
     setLoading(true);
-    sendRequest(JSON.stringify(newTask), 'POST');
+    sendRequest(JSON.stringify(newTaskToSend), 'POST')
+      .then(({ data }) => {
+        setLoading(false);
+        setResponseStatus(data.code);
+        handleAddTaskToList(data.data);
+        handleOpenModal();
+      })
+      .catch((error) => console.error(error));
+  };
+
+  const handleAddTaskToList = (taskToAdd) => {
     setTasks((oldTasks) => {
-      const newList = [newTask, ...oldTasks];
+      const newList = [taskToAdd, ...oldTasks];
       setStoredTasks(newList);
       return newList;
     });
@@ -73,9 +83,8 @@ const TaskForm = ({
       handleEditTask(value);
       deactiveForm(null);
     } else {
-      handleAddTask(value);
+      handleSendTask(value);
     }
-    handleOpenModal();
     setValue(initialFormValues);
   };
 
@@ -163,7 +172,7 @@ const TaskForm = ({
       </Button>
       {isOpen ? (
         <Modal handleClose={handleCloseModal}>
-          {response === 201
+          {responseStatus === 201
             ? 'Your new task has been added correctly'
             : 'Your task has not been sendend to database. Task added locally only'}
         </Modal>
