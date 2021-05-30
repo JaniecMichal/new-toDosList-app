@@ -13,6 +13,10 @@ const ActionBar = () => {
           flexDirection: 'column',
           justifyContent: 'center',
         },
+        '@media screen and (max-width: 500px)': {
+          padding: '0 20px',
+          margin: '18px 0',
+        },
       }}
     >
       <Searching />
