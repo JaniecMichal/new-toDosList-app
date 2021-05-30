@@ -51,7 +51,7 @@ const TasksList = ({ tasks, storedTasks, setStoredTasks }) => {
           if (editedTaskid === task.id) {
             return (
               <TaskForm
-                key={taskIndex}
+                key={'TaskForm'}
                 deactiveForm={setEditedTaskId}
                 editedTask={task}
                 editedTaskIndex={taskIndex}
@@ -62,7 +62,7 @@ const TasksList = ({ tasks, storedTasks, setStoredTasks }) => {
 
           return (
             <ListItem
-              key={taskIndex}
+              key={task.title}
               task={task}
               index={taskIndex}
               toggleTaskEdit={toggleTaskEdit}
