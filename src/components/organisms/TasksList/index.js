@@ -33,6 +33,9 @@ const TasksList = ({ tasks, storedTasks, setStoredTasks }) => {
           '@media screen and (max-width: 800px)': {
             gridTemplateColumns: '1fr',
           },
+          '@media screen and (max-width: 500px)': {
+            padding: '0 20px',
+          },
         }}
       >
         <Box
