@@ -17,16 +17,7 @@ export const useAPI = () => {
         authorization: `Bearer ${process.env.REACT_APP_GOREST_TOKEN}`,
         'Content-Type': 'application/json',
       },
-    })
-      .then(({ data }) => {
-        setResponse(data.code);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.err(err);
-        setLoading(false);
-        setError(err);
-      });
+    });
 
   const sendGETRequest = (id = '') =>
     axios
@@ -36,7 +27,7 @@ export const useAPI = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.err(err);
+        console.error(err);
         setLoading(false);
         setError(err);
       });
